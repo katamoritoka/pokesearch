@@ -1,0 +1,39 @@
+.card-list {
+  display: flex;
+  justify-content: space-around;
+  flex-wrap: wrap;
+  margin: 2rem 10%;
+}
+
+.pagination {
+  height: 5rem;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-around;
+}
+
+.pages,
+.info {
+  display: flex;
+  justify-content: center;
+  flex-wrap: wrap;
+}
+
+.pages div {
+  border: 2px solid black;
+  margin: 2px;
+  width: 1.75rem;
+  height: 1.75rem;
+  padding: 2px;
+  text-align: center;
+  font-size: 1.5rem;
+  border-radius: 10%;
+}
+
+.pages div:hover {
+  cursor: pointer;
+}
+
+.current {
+  background-color: #fa8518;
+}
