@@ -1,62 +1,64 @@
-import React from 'react';
-import './CardList.css';
-import Card from '../Card/Card';
+/* eslint-disable react/prop-types */
+import React from 'react'
+import './CardList.css'
+import Card from '../Card/Card'
 
 class CardList extends React.Component {
-  constructor(props) {
-    super(props);
+  constructor (props) {
+    super(props)
 
     this.state = {
       offset: 0,
-      limit: 10,
-    };
+      limit: 10
+    }
 
-    this.handleLimitChange = this.handleLimitChange.bind(this);
-    this.currentPokemons = this.currentPokemons.bind(this);
-    this.handlePageChange = this.handlePageChange.bind(this);
-    this.renderPages = this.renderPages.bind(this);
-    this.renderListParams = this.renderListParams.bind(this);
-    this.getPageClass = this.getPageClass.bind(this);
+    this.handleLimitChange = this.handleLimitChange.bind(this)
+    this.currentPokemons = this.currentPokemons.bind(this)
+    this.handlePageChange = this.handlePageChange.bind(this)
+    this.renderPages = this.renderPages.bind(this)
+    this.renderListParams = this.renderListParams.bind(this)
+    this.getPageClass = this.getPageClass.bind(this)
   }
 
-  componentWillReceiveProps() {
+  componentWillReceiveProps () {
     this.setState({
-      offset: 0,
-    });
+      offset: 0
+    })
   }
 
-  handleLimitChange(event) {
+  handleLimitChange (event) {
     this.setState({
       limit: +event.target.value,
-      offset: 0,
-    });
+      offset: 0
+    })
   }
 
-  handlePageChange(number) {
+  handlePageChange (number) {
     this.setState({
-      offset: number * this.state.limit,
-    });
+      offset: number * this.state.limit
+    })
   }
 
-  currentPokemons() {
+  currentPokemons () {
     const current = this.props.pokemons.slice(
       this.state.offset,
-      Math.min(this.state.offset + this.state.limit, this.props.pokemons.length),
-    );
-    return current;
+      Math.min(this.state.offset + this.state.limit, this.props.pokemons.length)
+    )
+    return current
   }
 
-  getPageClass(pageNumber) {
-    const currentPage = this.state.offset / this.state.limit;
+  getPageClass (pageNumber) {
+    const currentPage = this.state.offset / this.state.limit
     if (pageNumber === currentPage) {
-      return 'current';
+      return 'current'
     }
-    return '';
+    return ''
   }
 
-  renderPages() {
-    const pages = [];
-    const lastPage = Math.ceil(this.props.pokemons.length / this.state.limit) - 1;
+  renderPages () {
+    const pages = []
+    const lastPage =
+      Math.ceil(this.props.pokemons.length / this.state.limit) - 1
     if (lastPage < 9) {
       for (let i = 0; i < lastPage; i += 1) {
         pages.push(
@@ -66,20 +68,20 @@ class CardList extends React.Component {
             key={i}
           >
             {i + 1}
-          </div>,
-        );
+          </div>
+        )
       }
     } else {
-      const currentPage = this.state.offset / this.state.limit;
-      let left = currentPage - 2;
-      let right = currentPage + 2;
+      const currentPage = this.state.offset / this.state.limit
+      let left = currentPage - 2
+      let right = currentPage + 2
       while (left < 0) {
-        left += 1;
-        right += 1;
+        left += 1
+        right += 1
       }
       while (right > lastPage) {
-        left -= 1;
-        right -= 1;
+        left -= 1
+        right -= 1
       }
       for (let i = left; i <= right; i += 1) {
         pages.push(
@@ -89,21 +91,21 @@ class CardList extends React.Component {
             key={i}
           >
             {i + 1}
-          </div>,
-        );
+          </div>
+        )
       }
       if (left > 1) {
-        pages.unshift(<span>...</span>);
+        pages.unshift(<span>...</span>)
       }
       if (left > 0) {
         pages.unshift(
           <div onClick={this.handlePageChange.bind(this, 0)} key={0}>
             {1}
-          </div>,
-        );
+          </div>
+        )
       }
       if (right < lastPage - 1) {
-        pages.push(<span>...</span>);
+        pages.push(<span>...</span>)
       }
       if (right < lastPage) {
         pages.push(
@@ -112,14 +114,14 @@ class CardList extends React.Component {
             key={lastPage}
           >
             {lastPage + 1}
-          </div>,
-        );
+          </div>
+        )
       }
     }
-    return pages;
+    return pages
   }
 
-  renderListParams() {
+  renderListParams () {
     if (this.props.pokemons.length !== 0) {
       return (
         <div className="pagination">
@@ -129,7 +131,7 @@ class CardList extends React.Component {
               {this.state.offset + 1}-
               {Math.min(
                 this.state.offset + this.state.limit,
-                this.props.pokemons.length,
+                this.props.pokemons.length
               )}
               . Per page:{' '}
             </p>
@@ -145,12 +147,12 @@ class CardList extends React.Component {
           </div>
           <div className="pages">{this.renderPages()}</div>
         </div>
-      );
+      )
     }
-    return [];
+    return []
   }
 
-  render() {
+  render () {
     return (
       <div>
         {this.renderListParams()}
@@ -161,8 +163,8 @@ class CardList extends React.Component {
         </div>
         <div className="pages">{this.renderPages()}</div>
       </div>
-    );
+    )
   }
 }
 
-export default CardList;
+export default CardList

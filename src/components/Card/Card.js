@@ -1,8 +1,9 @@
-import React from 'react';
-import './Card.css';
+/* eslint-disable react/prop-types */
+import React from 'react'
+import './Card.css'
 
 class Card extends React.Component {
-  render() {
+  render () {
     return (
       <div className="pokemon-card">
         <div className="image-container">
@@ -23,8 +24,8 @@ class Card extends React.Component {
           </div>
         </div>
       </div>
-    );
+    )
   }
 }
 
-export default Card;
+export default Card

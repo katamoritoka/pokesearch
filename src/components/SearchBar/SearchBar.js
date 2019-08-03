@@ -1,47 +1,48 @@
-import React from 'react';
-import './SearchBar.css';
+/* eslint-disable react/prop-types */
+import React from 'react'
+import './SearchBar.css'
 
 class SearchBar extends React.Component {
-  constructor(props) {
-    super(props);
+  constructor (props) {
+    super(props)
 
     this.state = {
       input: '',
-      types: [],
-    };
-    this.handleInputChange = this.handleInputChange.bind(this);
-    this.handleSearch = this.handleSearch.bind(this);
-    this.handleTypeChange = this.handleTypeChange.bind(this);
+      types: []
+    }
+    this.handleInputChange = this.handleInputChange.bind(this)
+    this.handleSearch = this.handleSearch.bind(this)
+    this.handleTypeChange = this.handleTypeChange.bind(this)
   }
 
-  handleInputChange(event) {
+  handleInputChange (event) {
     this.setState({
-      input: event.target.value,
-    });
+      input: event.target.value
+    })
   }
 
-  handleSearch() {
-    this.props.search(this.state.input, this.state.types);
+  handleSearch () {
+    this.props.search(this.state.input, this.state.types)
   }
 
-  handleTypeChange(event) {
-    let { types } = this.state;
+  handleTypeChange (event) {
+    let { types } = this.state
     if (event.target.className === 'active') {
-      event.target.className = '';
-      const index = types.indexOf(event.target.id);
-      const start = types.slice(0, index);
-      const end = types.slice(index + 1);
-      types = start.concat(end);
+      event.target.className = ''
+      const index = types.indexOf(event.target.id)
+      const start = types.slice(0, index)
+      const end = types.slice(index + 1)
+      types = start.concat(end)
     } else {
-      event.target.className = 'active';
-      types.push(event.target.id);
+      event.target.className = 'active'
+      types.push(event.target.id)
     }
     this.setState({
-      types,
-    });
+      types
+    })
   }
 
-  render() {
+  render () {
     return (
       <div className="searchbar">
         <div className="searchbar-field">
@@ -113,11 +114,11 @@ class SearchBar extends React.Component {
           </div>
         </div>
         <div className="searchbar-submit">
-          <a onClick={this.handleSearch}>Search</a>
+          <div onClick={this.handleSearch}>Search</div>
         </div>
       </div>
-    );
+    )
   }
 }
 
-export default SearchBar;
+export default SearchBar

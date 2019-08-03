@@ -68,7 +68,7 @@
   text-align: center;
 }
 
-.searchbar-submit a {
+.searchbar-submit div {
   border-radius: 4px;
   padding: 0.72rem 1.7rem;
   background-color: #fa8518;
