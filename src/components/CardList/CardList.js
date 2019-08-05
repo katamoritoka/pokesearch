@@ -2,28 +2,19 @@
 import React from 'react'
 import './CardList.css'
 import Card from '../Card/Card'
-
 class CardList extends React.Component {
   constructor (props) {
     super(props)
-
     this.state = {
       offset: 0,
       limit: 10
     }
-
     this.handleLimitChange = this.handleLimitChange.bind(this)
     this.currentPokemons = this.currentPokemons.bind(this)
     this.handlePageChange = this.handlePageChange.bind(this)
     this.renderPages = this.renderPages.bind(this)
     this.renderListParams = this.renderListParams.bind(this)
     this.getPageClass = this.getPageClass.bind(this)
-  }
-
-  componentWillReceiveProps () {
-    this.setState({
-      offset: 0
-    })
   }
 
   handleLimitChange (event) {
@@ -60,7 +51,7 @@ class CardList extends React.Component {
     const lastPage =
       Math.ceil(this.props.pokemons.length / this.state.limit) - 1
     if (lastPage < 9) {
-      for (let i = 0; i < lastPage; i += 1) {
+      for (let i = 0; i <= lastPage; i += 1) {
         pages.push(
           <div
             className={this.getPageClass(i)}
@@ -95,7 +86,7 @@ class CardList extends React.Component {
         )
       }
       if (left > 1) {
-        pages.unshift(<span>...</span>)
+        pages.unshift(<span key={left - 1}>...</span>)
       }
       if (left > 0) {
         pages.unshift(
@@ -105,7 +96,7 @@ class CardList extends React.Component {
         )
       }
       if (right < lastPage - 1) {
-        pages.push(<span>...</span>)
+        pages.push(<span key={right + 1}>...</span>)
       }
       if (right < lastPage) {
         pages.push(
@@ -153,18 +144,25 @@ class CardList extends React.Component {
   }
 
   render () {
-    return (
-      <div>
-        {this.renderListParams()}
-        <div className="card-list">
-          {this.currentPokemons().map(pokemon => (
-            <Card key={pokemon.id} pokemon={pokemon} />
-          ))}
+    if (this.props.loadingFlag) {
+      return (
+        <div className="loading">
+          <p>Loading...</p>
         </div>
-        <div className="pages">{this.renderPages()}</div>
-      </div>
-    )
+      )
+    } else {
+      return (
+        <div>
+          {this.renderListParams()}
+          <div className="card-list">
+            {this.currentPokemons().map(pokemon => (
+              <Card key={pokemon.id} pokemon={pokemon} />
+            ))}
+          </div>
+          <div className="pages">{this.renderPages()}</div>
+        </div>
+      )
+    }
   }
 }
-
 export default CardList

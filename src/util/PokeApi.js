@@ -1,7 +1,6 @@
 const PokeApi = {
   byNameUrl: 'https://pokeapi.co/api/v2/pokemon?offset=0&limit=807',
   byTypeUrl: 'https://pokeapi.co/api/v2/type/',
-
   getImgId (id) {
     const stringId = id.toString()
     let newId = ''
@@ -18,7 +17,6 @@ const PokeApi = {
     }
     return newId
   },
-
   async requestByName (input) {
     const rawData = await this.sendRequest(this.byNameUrl)
     const pokemonUrls = rawData.results.filter(
@@ -26,7 +24,6 @@ const PokeApi = {
     )
     return pokemonUrls
   },
-
   async requestByType (typeId) {
     const endpoint = this.byTypeUrl + typeId
     const rawData = await this.sendRequest(endpoint)
@@ -38,7 +35,6 @@ const PokeApi = {
     )
     return pokemonUrls
   },
-
   async transformPokemonUrlsToObj (pokemonUrls) {
     const promises = pokemonUrls.map(pokemon => {
       if (typeof pokemon === 'object') {
@@ -52,18 +48,29 @@ const PokeApi = {
     // console.log(allPokemonsJSON);
     const pokemonObjects = allPokemonsJSON.map(pokemonJSON => {
       const types = pokemonJSON.types.map(type => type.type.name)
+      const abilities = pokemonJSON.abilities.map(
+        ability => ability.ability.name
+      )
       return {
         id: pokemonJSON.id,
         name: pokemonJSON.name,
-        types,
+        types: types,
         imgSrc: `https://assets.pokemon.com/assets/cms2/img/pokedex/full/${this.getImgId(
           pokemonJSON.id
-        )}.png`
+        )}.png`,
+        height: pokemonJSON.height,
+        weight: pokemonJSON.weight,
+        abilities: abilities,
+        hp: pokemonJSON.stats[5].base_stat,
+        attack: pokemonJSON.stats[4].base_stat,
+        defence: pokemonJSON.stats[3].base_stat,
+        speed: pokemonJSON.stats[0].base_stat,
+        specialAttack: pokemonJSON.stats[2].base_stat,
+        specialDefence: pokemonJSON.stats[1].base_stat
       }
     })
     return pokemonObjects
   },
-
   async sendRequest (endpoint) {
     // console.log(endpoint);
     const response = await fetch(endpoint)
@@ -72,7 +79,6 @@ const PokeApi = {
     // console.log(jsonResponse);
     return jsonResponse
   },
-
   unique (arr) {
     const obj = {}
     for (let i = 0; i < arr.length; i += 1) {
@@ -81,7 +87,6 @@ const PokeApi = {
     }
     return Object.keys(obj)
   },
-
   async searchByTypes (types) {
     // console.log(types);
     const promises = types.map(type => this.requestByType(type))
@@ -101,7 +106,6 @@ const PokeApi = {
     // console.log(transformed);
     return transformed
   },
-
   async searchByName (input) {
     const filtered = await this.requestByName(input)
     const transformed = await this.transformPokemonUrlsToObj(filtered)

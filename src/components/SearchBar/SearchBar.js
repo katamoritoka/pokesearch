@@ -5,7 +5,6 @@ import './SearchBar.css'
 class SearchBar extends React.Component {
   constructor (props) {
     super(props)
-
     this.state = {
       input: '',
       types: []
@@ -51,6 +50,7 @@ class SearchBar extends React.Component {
             placeholder="Enter pokemon name"
           />
         </div>
+        <span id="or">OR</span>
         <div className="types-outer-container">
           <div className="types-inner-container">
             <div id="normal" onClick={this.handleTypeChange}>
@@ -114,7 +114,7 @@ class SearchBar extends React.Component {
           </div>
         </div>
         <div className="searchbar-submit">
-          <div onClick={this.handleSearch}>Search</div>
+          <a onClick={this.handleSearch}>Search</a>
         </div>
       </div>
     )

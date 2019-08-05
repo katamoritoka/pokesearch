@@ -9,22 +9,26 @@ class App extends React.Component {
     super(props)
 
     this.state = {
-      pokemons: []
+      pokemons: [],
+      loadingFlag: false
     }
     this.search = this.search.bind(this)
   }
 
   search (input, types) {
+    this.setState({ loadingFlag: true })
     if (types.length === 0) {
       PokeApi.searchByName(input).then(pokemons => {
         this.setState({
-          pokemons
+          pokemons: pokemons,
+          loadingFlag: false
         })
       })
     } else {
       PokeApi.searchByTypes(types).then(pokemons => {
         this.setState({
-          pokemons
+          pokemons: pokemons,
+          loadingFlag: false
         })
       })
     }
@@ -35,7 +39,11 @@ class App extends React.Component {
       <div className="app">
         <h1>PokeSearch</h1>
         <SearchBar search={this.search} />
-        <CardList pokemons={this.state.pokemons} />
+        <CardList
+          pokemons={this.state.pokemons}
+          key={this.state.pokemons.length}
+          loadingFlag={this.state.loadingFlag}
+        />
       </div>
     )
   }
