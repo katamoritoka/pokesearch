@@ -1,50 +1,63 @@
 /* eslint-disable react/prop-types */
 import React from 'react'
+import { extendObservable } from 'mobx'
+import { observer } from 'mobx-react'
 import './Card.css'
 
 class Card extends React.Component {
   constructor (props) {
     super(props)
-    this.state = {
+    extendObservable(this, {
       opened: false
-    }
-    this.toggleCard = this.toggleCard.bind(this)
+    })
   }
 
-  toggleCard (event) {
+  toggleCard = (event) => {
     const width = window.innerWidth
     const pokemonCard = event.currentTarget.parentNode.parentNode
     const additionalInfo = pokemonCard.children[1]
-    if (this.state.opened) {
+    if (this.opened) {
       pokemonCard.style.width = '250px'
       additionalInfo.style.display = 'none'
     } else {
       if (width > 750) {
-        pokemonCard.style.width = '605px'
+        pokemonCard.style.width = '645px'
       }
       additionalInfo.style.display = 'flex'
     }
-    this.setState({ opened: !this.state.opened })
+    this.opened = !this.opened
   }
 
   render () {
+    const {
+      imgSrc,
+      name,
+      id,
+      types,
+      height,
+      weight,
+      abilities,
+      hp,
+      attack,
+      defence,
+      speed,
+      specialAttack,
+      specialDefence
+    } = this.props.pokemon
     return (
       <div className="pokemon-card">
         <div className="main-block">
           <div onClick={this.toggleCard} className="image-container">
-            <img
-              src={this.props.pokemon.imgSrc}
-              alt={this.props.pokemon.name}
-            />
+            <img src={imgSrc} alt={name} />
           </div>
           <div className="pokemon-info">
             <p className="id">
               <span>#</span>
-              {this.props.pokemon.id}
+              {id}
             </p>
-            <h2>{this.props.pokemon.name}</h2>
+            <h2>{name}</h2>
             <div className="types">
-              {this.props.pokemon.types.map(type => (
+              {types.map(type => (
                 <div key={type} className={type}>
                   {type}
                 </div>
@@ -52,6 +65,7 @@ class Card extends React.Component {
             </div>
           </div>
         </div>
+
         <div className="additional-info">
           <div className="stats-container">
             <h2>Profile</h2>
@@ -61,14 +75,14 @@ class Card extends React.Component {
                 <h3>Weight</h3>
               </div>
               <div>
-                <h3>{this.props.pokemon.height / 10} m</h3>
-                <h3>{this.props.pokemon.weight / 10} kg</h3>
+                <h3>{height / 10} m</h3>
+                <h3>{weight / 10} kg</h3>
               </div>
             </div>
             <h2>Abilities</h2>
             <div className="stats">
               <div>
-                {this.props.pokemon.abilities.map(ability => (
+                {abilities.map(ability => (
                   <h3 key={ability}>{ability}</h3>
                 ))}
               </div>
@@ -86,12 +100,12 @@ class Card extends React.Component {
                 <h3>Special Defence</h3>
               </div>
               <div>
-                <h3>{this.props.pokemon.hp}</h3>
-                <h3>{this.props.pokemon.attack}</h3>
-                <h3>{this.props.pokemon.defence}</h3>
-                <h3>{this.props.pokemon.speed}</h3>
-                <h3>{this.props.pokemon.specialAttack}</h3>
-                <h3>{this.props.pokemon.specialDefence}</h3>
+                <h3>{hp}</h3>
+                <h3>{attack}</h3>
+                <h3>{defence}</h3>
+                <h3>{speed}</h3>
+                <h3>{specialAttack}</h3>
+                <h3>{specialDefence}</h3>
               </div>
             </div>
           </div>
@@ -101,4 +115,4 @@ class Card extends React.Component {
   }
 }
 
-export default Card
+export default observer(Card)

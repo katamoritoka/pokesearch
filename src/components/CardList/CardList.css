@@ -1,8 +1,8 @@
 .card-list {
   display: flex;
-  justify-content: space-around;
+  justify-content: center;
   flex-wrap: wrap;
-  margin: 2rem 8%;
+  margin: 2rem 14%;
 }
 .pagination {
   height: 5rem;

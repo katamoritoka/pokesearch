@@ -45,7 +45,6 @@ const PokeApi = {
       }
     })
     const allPokemonsJSON = await Promise.all(promises)
-    // console.log(allPokemonsJSON);
     const pokemonObjects = allPokemonsJSON.map(pokemonJSON => {
       const types = pokemonJSON.types.map(type => type.type.name)
       const abilities = pokemonJSON.abilities.map(
@@ -72,11 +71,8 @@ const PokeApi = {
     return pokemonObjects
   },
   async sendRequest (endpoint) {
-    // console.log(endpoint);
     const response = await fetch(endpoint)
-    // console.log(response);
     const jsonResponse = await response.json()
-    // console.log(jsonResponse);
     return jsonResponse
   },
   unique (arr) {
@@ -87,23 +83,18 @@ const PokeApi = {
     }
     return Object.keys(obj)
   },
-  async searchByTypes (types) {
-    // console.log(types);
+  async searchByTypes (types, input) {
     const promises = types.map(type => this.requestByType(type))
     const results = await Promise.all(promises)
-    // console.log(results);
     const concatenated = results.reduce((accumulator, currentValue) =>
       accumulator.concat(currentValue)
     )
-    // console.log(concatenated);
-    // here may be filtering by name
-    //
-    const uniqueUrls = this.unique(concatenated)
-    // console.log(uniqueUrls);
+    const filtered = concatenated.filter(
+      pokemonObj => pokemonObj.name.indexOf(input) === 0
+    )
+    const uniqueUrls = this.unique(filtered)
     const transformed = await this.transformPokemonUrlsToObj(uniqueUrls)
-    // console.log(transformed);
     transformed.sort((a, b) => +a.id - +b.id)
-    // console.log(transformed);
     return transformed
   },
   async searchByName (input) {

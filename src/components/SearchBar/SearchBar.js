@@ -1,44 +1,41 @@
 /* eslint-disable react/prop-types */
 import React from 'react'
+import { extendObservable } from 'mobx'
+import { observer } from 'mobx-react'
 import './SearchBar.css'
 
 class SearchBar extends React.Component {
   constructor (props) {
     super(props)
-    this.state = {
+    extendObservable(this, {
       input: '',
       types: []
-    }
-    this.handleInputChange = this.handleInputChange.bind(this)
-    this.handleSearch = this.handleSearch.bind(this)
-    this.handleTypeChange = this.handleTypeChange.bind(this)
-  }
-
-  handleInputChange (event) {
-    this.setState({
-      input: event.target.value
     })
   }
 
-  handleSearch () {
-    this.props.search(this.state.input, this.state.types)
+  handleInputChange = (event) => {
+    this.input = event.target.value
   }
 
-  handleTypeChange (event) {
-    let { types } = this.state
-    if (event.target.className === 'active') {
-      event.target.className = ''
-      const index = types.indexOf(event.target.id)
+  handleSearch = () => {
+    const { input, types } = this
+    this.props.search(input, types)
+  }
+
+  handleTypeChange = (event) => {
+    let { types } = this
+    const currentType = event.target
+    if (currentType.className === 'active') {
+      currentType.className = ''
+      const index = types.indexOf(currentType.id)
       const start = types.slice(0, index)
       const end = types.slice(index + 1)
       types = start.concat(end)
     } else {
-      event.target.className = 'active'
-      types.push(event.target.id)
+      currentType.className = 'active'
+      types.push(currentType.id)
     }
-    this.setState({
-      types
-    })
+    this.types = types
   }
 
   render () {
@@ -121,4 +118,4 @@ class SearchBar extends React.Component {
   }
 }
 
-export default SearchBar
+export default observer(SearchBar)

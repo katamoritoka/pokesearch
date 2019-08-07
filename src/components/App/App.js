@@ -1,4 +1,6 @@
 import React from 'react'
+import { extendObservable } from 'mobx'
+import { observer } from 'mobx-react'
 import './App.css'
 import SearchBar from '../SearchBar/SearchBar'
 import CardList from '../CardList/CardList'
@@ -7,46 +9,38 @@ import PokeApi from '../../util/PokeApi'
 class App extends React.Component {
   constructor (props) {
     super(props)
-
-    this.state = {
+    extendObservable(this, {
       pokemons: [],
       loadingFlag: false
-    }
-    this.search = this.search.bind(this)
+    })
   }
 
-  search (input, types) {
-    this.setState({ loadingFlag: true })
+  search = async (input, types) => {
+    this.loadingFlag = true
+    let pokemons = []
     if (types.length === 0) {
-      PokeApi.searchByName(input).then(pokemons => {
-        this.setState({
-          pokemons: pokemons,
-          loadingFlag: false
-        })
-      })
+      pokemons = await PokeApi.searchByName(input)
     } else {
-      PokeApi.searchByTypes(types).then(pokemons => {
-        this.setState({
-          pokemons: pokemons,
-          loadingFlag: false
-        })
-      })
+      pokemons = await PokeApi.searchByTypes(types, input)
     }
+    this.pokemons = pokemons
+    this.loadingFlag = false
   }
 
   render () {
+    const { pokemons, loadingFlag } = this
     return (
       <div className="app">
         <h1>PokeSearch</h1>
         <SearchBar search={this.search} />
         <CardList
-          pokemons={this.state.pokemons}
-          key={this.state.pokemons.length}
-          loadingFlag={this.state.loadingFlag}
+          pokemons={pokemons}
+          key={pokemons.length}
+          loadingFlag={loadingFlag}
         />
       </div>
     )
   }
 }
 
-export default App
+export default observer(App)
