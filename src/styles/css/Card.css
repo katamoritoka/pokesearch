@@ -1,0 +1,123 @@
+.pokemon-card {
+  margin: 10px;
+  font-family: "Titillium Web", Arial, sans-serif;
+  box-shadow: 0 0 10px rgba(0, 0, 0, 0.5);
+  display: flex;
+  flex-wrap: wrap;
+  width: 250px; }
+
+.opened {
+  width: 645px; }
+
+.main-block {
+  width: 250px;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-around; }
+
+.additional-info {
+  padding: 10px;
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: space-around;
+  display: flex; }
+
+@media only screen and (max-width: 750px) {
+  .pokemon-card, .opened {
+    width: 250px; }
+  .additional-info {
+    flex-direction: column;
+    width: 250px; } }
+
+.stats-container {
+  padding: 5px; }
+
+.stats {
+  display: flex;
+  margin: 5px;
+  justify-content: space-between; }
+  .stats div {
+    margin: 3px; }
+
+.image-container {
+  padding: 5%; }
+  .image-container:hover {
+    cursor: pointer; }
+  .image-container img {
+    display: block;
+    max-width: 100%;
+    height: auto;
+    background-color: lightgray;
+    border-radius: 15%; }
+
+.pokemon-info {
+  padding: 5px;
+  padding-left: 10%; }
+
+h2 {
+  font-weight: bold;
+  font-size: 2rem;
+  margin-bottom: 5px;
+  text-transform: capitalize; }
+
+.types div {
+  border: 1px black solid;
+  border-radius: 9%;
+  display: inline-block;
+  padding: 2px 3px;
+  margin: 2px;
+  text-transform: capitalize; }
+
+.grass {
+  background-color: #9bcc50; }
+
+.poison {
+  background-color: #b97fc9; }
+
+.fire {
+  background-color: #fd7d24; }
+
+.flying {
+  background: linear-gradient(180deg, #3dc7ef 55%, #bdb9b8 45%); }
+
+.water {
+  background-color: #4592c4; }
+
+.bug {
+  background-color: #729f3f; }
+
+.normal {
+  background-color: #a4acaf; }
+
+.electric {
+  background-color: #eed535; }
+
+.ground {
+  background: linear-gradient(180deg, #f7de3f 55%, #ab9842 45%); }
+
+.fairy {
+  background-color: #fdb9e9; }
+
+.fighting {
+  background-color: #d56723; }
+
+.psychic {
+  background-color: #f366b9; }
+
+.rock {
+  background-color: #a38c21; }
+
+.steel {
+  background-color: #9eb7b8; }
+
+.ice {
+  background-color: #51c4e7; }
+
+.ghost {
+  background-color: #7b62a3; }
+
+.dragon {
+  background: linear-gradient(180deg, #53a4cf 55%, #f16e57 45%); }
+
+.dark {
+  background-color: #707070; }

@@ -1,0 +1,128 @@
+.pokemon-card 
+  margin: 10px
+  font-family: "Titillium Web", Arial, sans-serif
+  box-shadow: 0 0 10px rgba(0, 0, 0, 0.5)
+  display: flex
+  flex-wrap: wrap
+  width: 250px
+
+.opened 
+  width: 645px
+
+.main-block 
+  width: 250px
+  display: flex
+  flex-direction: column
+  justify-content: space-around
+
+.additional-info 
+  padding: 10px
+  display: flex
+  flex-wrap: wrap
+  justify-content: space-around
+  display: flex
+
+@media only screen and (max-width: 750px) 
+  .pokemon-card, .opened 
+    width: 250px
+  
+  .additional-info 
+    flex-direction: column
+    width: 250px
+  
+
+.stats-container 
+  padding: 5px
+
+.stats 
+  display: flex
+  margin: 5px
+  justify-content: space-between
+
+  div 
+    margin: 3px
+
+.image-container 
+  padding: 5%
+
+  &:hover 
+    cursor: pointer
+
+  img 
+    display: block
+    max-width: 100%
+    height: auto
+    background-color: lightgray
+    border-radius: 15%
+
+.pokemon-info 
+  padding: 5px
+  padding-left: 10%
+
+h2 
+  font-weight: bold
+  font-size: 2rem
+  margin-bottom: 5px
+  text-transform: capitalize
+
+.types div 
+  border: 1px black solid
+  border-radius: 9%
+  display: inline-block
+  padding: 2px 3px
+  margin: 2px
+  text-transform: capitalize
+
+.grass 
+  background-color: rgb(155, 204, 80)
+
+.poison 
+  background-color: rgb(185, 127, 201)
+
+.fire 
+  background-color: rgb(253, 125, 36)
+
+.flying 
+  background: linear-gradient(180deg, #3dc7ef 55%, #bdb9b8 45%)
+
+.water 
+  background-color: rgb(69, 146, 196)
+
+.bug 
+  background-color: rgb(114, 159, 63)
+
+.normal 
+  background-color: rgb(164, 172, 175)
+
+.electric 
+  background-color: rgb(238, 213, 53)
+
+.ground 
+  background: linear-gradient(180deg, #f7de3f 55%, #ab9842 45%)
+
+.fairy 
+  background-color: rgb(253, 185, 233)
+
+.fighting 
+  background-color: rgb(213, 103, 35)
+
+.psychic 
+  background-color: rgb(243, 102, 185)
+
+.rock 
+  background-color: rgb(163, 140, 33)
+
+.steel 
+  background-color: rgb(158, 183, 184)
+
+.ice 
+  background-color: rgb(81, 196, 231)
+
+.ghost 
+  background-color: rgb(123, 98, 163)
+
+.dragon 
+  background: linear-gradient(180deg,rgb(83, 164, 207) 55%,rgb(241, 110, 87) 45%)
+
+.dark 
+  background-color: rgb(112, 112, 112)

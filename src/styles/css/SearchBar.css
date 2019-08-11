@@ -1,0 +1,133 @@
+.searchbar {
+  font-family: "Titillium Web", Arial, sans-serif;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-content: center;
+  background-image: url("./pikachu.jpg");
+  background-size: cover;
+  background-repeat: no-repeat;
+  height: 21rem; }
+
+.searchbar-field {
+  display: flex;
+  justify-content: center;
+  margin-bottom: 1rem; }
+  .searchbar-field input {
+    width: 21rem;
+    padding: 0.66rem 1rem;
+    margin-right: 2.22rem;
+    border: 1px solid #fff;
+    border-radius: 4px;
+    font-size: 0.77rem;
+    font-weight: 500; }
+    .searchbar-field input:last-child {
+      margin-right: 0; }
+
+#or {
+  margin-bottom: 1rem;
+  text-align: center;
+  font-weight: bold;
+  font-size: 1.5rem;
+  color: #ffffff; }
+
+.types-outer-container {
+  justify-content: center;
+  align-content: center;
+  display: flex;
+  flex-direction: column;
+  flex-wrap: wrap;
+  padding: 0 10%;
+  margin-bottom: 2rem; }
+
+.types-inner-container {
+  display: flex;
+  justify-content: space-between; }
+  .types-inner-container div {
+    border: 1px black solid;
+    border-radius: 9%;
+    padding: 2px 3px;
+    margin: 2px;
+    text-transform: capitalize; }
+    .types-inner-container div:hover {
+      cursor: pointer; }
+
+.active {
+  border: 3px solid black !important; }
+
+.searchbar-submit {
+  text-align: center; }
+  .searchbar-submit a {
+    border-radius: 4px;
+    padding: 0.72rem 1.7rem;
+    background-color: #fa8518;
+    color: #ffffff;
+    font-weight: 600;
+    transition: background-color 0.5s; }
+    .searchbar-submit a:hover {
+      cursor: pointer;
+      background-color: #fca535; }
+
+@media only screen and (max-width: 425px) {
+  .searchbar {
+    justify-content: flex-start; }
+  .searchbar-field input {
+    width: 100%; }
+  .types-outer-container {
+    flex-direction: row; }
+  .types-inner-container {
+    flex-direction: column; } }
+
+#grass {
+  background-color: #9bcc50; }
+
+#poison {
+  background-color: #b97fc9; }
+
+#fire {
+  background-color: #fd7d24; }
+
+#flying {
+  background: linear-gradient(180deg, #3dc7ef 55%, #bdb9b8 45%); }
+
+#water {
+  background-color: #4592c4; }
+
+#bug {
+  background-color: #729f3f; }
+
+#normal {
+  background-color: #a4acaf; }
+
+#electric {
+  background-color: #eed535; }
+
+#ground {
+  background: linear-gradient(180deg, #f7de3f 55%, #ab9842 45%); }
+
+#fairy {
+  background-color: #fdb9e9; }
+
+#fighting {
+  background-color: #d56723; }
+
+#psychic {
+  background-color: #f366b9; }
+
+#rock {
+  background-color: #a38c21; }
+
+#steel {
+  background-color: #9eb7b8; }
+
+#ice {
+  background-color: #51c4e7; }
+
+#ghost {
+  background-color: #7b62a3; }
+
+#dragon {
+  background: linear-gradient(180deg, #53a4cf 55%, #f16e57 45%); }
+
+#dark {
+  background-color: #707070; }
