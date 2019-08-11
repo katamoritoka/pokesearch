@@ -1,9 +1,10 @@
 /* eslint-disable react/prop-types */
-import React, { useState } from 'react'
+import React from 'react'
 import './Card.sass'
+import { useLocalStore, useObserver } from 'mobx-react-lite'
 
 export default function Card (props) {
-  const [opened, setOpened] = useState(false)
+  const state = useLocalStore(() => ({ opened: false }))
   const {
     imgSrc,
     name,
@@ -21,11 +22,11 @@ export default function Card (props) {
   } = props.pokemon
 
   function toggleCard () {
-    setOpened(!opened)
+    state.opened = !state.opened
   }
 
-  return (
-    <div className={'pokemon-card' + (opened ? ' opened' : '')}>
+  return useObserver(() => (
+    <div className={'pokemon-card' + (state.opened ? ' opened' : '')}>
       <div className="main-block">
         <div onClick={toggleCard} className="image-container">
           <img src={imgSrc} alt={name} />
@@ -45,7 +46,7 @@ export default function Card (props) {
           </div>
         </div>
       </div>
-      {opened && (
+      {state.opened && (
         <div className="additional-info">
           <div className="stats-container">
             <h2>Profile</h2>
@@ -92,5 +93,5 @@ export default function Card (props) {
         </div>
       )}
     </div>
-  )
+  ))
 }

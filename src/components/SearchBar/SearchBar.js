@@ -1,22 +1,41 @@
 /* eslint-disable react/prop-types */
-import React, { useState } from 'react'
+import React from 'react'
+import { useLocalStore, useObserver } from 'mobx-react-lite'
 import './SearchBar.sass'
 
 export default function SearchBar (props) {
-  const [input, setInput] = useState('')
-  const [types, setTypes] = useState([])
-  const typeNames = ['normal', 'fighting', 'flying', 'poison', 'ground', 'rock', 'bug', 'ghost', 'steel', 'fire', 'water', 'grass', 'electric', 'psychic', 'ice', 'dragon', 'dark', 'fairy']
+  const state = useLocalStore(() => ({ input: '', types: [] }))
+  const typeNames = [
+    'normal',
+    'fighting',
+    'flying',
+    'poison',
+    'ground',
+    'rock',
+    'bug',
+    'ghost',
+    'steel',
+    'fire',
+    'water',
+    'grass',
+    'electric',
+    'psychic',
+    'ice',
+    'dragon',
+    'dark',
+    'fairy'
+  ]
 
   function handleInputChange (event) {
-    setInput(event.target.value)
+    state.input = event.target.value
   }
 
   function handleSearch () {
-    props.search(input, types)
+    props.search(state.input, state.types)
   }
 
   function handleTypeChange (event) {
-    let currentTypes = types.map(elem => elem)
+    let currentTypes = state.types.map(elem => elem)
     const currentType = event.target.id
     const index = currentTypes.indexOf(currentType)
     if (index === -1) {
@@ -26,11 +45,11 @@ export default function SearchBar (props) {
       const end = currentTypes.slice(index + 1)
       currentTypes = start.concat(end)
     }
-    setTypes(currentTypes)
+    state.types = currentTypes
   }
 
   function getTypeClass (type) {
-    const index = types.indexOf(type)
+    const index = state.types.indexOf(type)
     if (index === -1) {
       return ''
     } else {
@@ -60,7 +79,7 @@ export default function SearchBar (props) {
     )
   }
 
-  return (
+  return useObserver(() => (
     <div className="searchbar">
       <div className="searchbar-field">
         <input onChange={handleInputChange} placeholder="Enter pokemon name" />
@@ -71,5 +90,5 @@ export default function SearchBar (props) {
         <a onClick={handleSearch}>Search</a>
       </div>
     </div>
-  )
+  ))
 }

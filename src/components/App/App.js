@@ -1,34 +1,34 @@
-import React, { useState } from 'react'
+import React from 'react'
+import { useObserver, useLocalStore } from 'mobx-react-lite'
 import './App.sass'
 import SearchBar from '../SearchBar/SearchBar'
 import CardList from '../CardList/CardList'
 import PokeApi from '../../util/PokeApi'
 
 export default function App (props) {
-  const [pokemons, setPokemons] = useState([])
-  const [loadingFlag, setLoadingFlag] = useState(false)
+  const state = useLocalStore(() => ({ loadingFlag: false, pokemons: [] }))
 
   async function search (input, types) {
-    setLoadingFlag(true)
-    let pokemons = []
+    state.loadingFlag = true
+    let newPokemons = []
     if (types.length === 0) {
-      pokemons = await PokeApi.searchByName(input)
+      newPokemons = await PokeApi.searchByName(input)
     } else {
-      pokemons = await PokeApi.searchByTypes(types, input)
+      newPokemons = await PokeApi.searchByTypes(types, input)
     }
-    setPokemons(pokemons)
-    setLoadingFlag(false)
+    state.pokemons = newPokemons
+    state.loadingFlag = false
   }
 
-  return (
+  return useObserver(() => (
     <div className="app">
       <h1>PokeSearch</h1>
       <SearchBar search={search} />
       <CardList
-        pokemons={pokemons}
-        key={pokemons.length}
-        loadingFlag={loadingFlag}
+        pokemons={state.pokemons}
+        key={state.pokemons.length}
+        loadingFlag={state.loadingFlag}
       />
     </div>
-  )
+  ))
 }

@@ -1,13 +1,14 @@
 /* eslint-disable react/prop-types */
-import React, { useState } from 'react'
+import React from 'react'
+import { useLocalStore, useObserver } from 'mobx-react-lite'
 import './CardList.sass'
 import Card from '../Card/Card'
 
 export default function CardList (props) {
-  const [offset, setOffset] = useState(0)
-  const [limit, setLimit] = useState(10)
+  const state = useLocalStore(() => ({ offset: 0, limit: 10 }))
 
   function currentPokemons () {
+    const { offset, limit } = state
     const { pokemons } = props
     const current = pokemons.slice(
       offset,
@@ -17,10 +18,11 @@ export default function CardList (props) {
   }
 
   function handlePageChange (number) {
-    setOffset(number * limit)
+    state.offset = number * state.limit
   }
 
   function getPageClass (pageNumber) {
+    const { offset, limit } = state
     const currentPage = offset / limit
     if (pageNumber === currentPage) {
       return 'current'
@@ -31,6 +33,7 @@ export default function CardList (props) {
 
   function renderPages () {
     const { pokemons } = props
+    const { offset, limit } = state
     const pages = []
     const lastPage = Math.ceil(pokemons.length / limit) - 1
     if (lastPage < 9) {
@@ -93,12 +96,13 @@ export default function CardList (props) {
   }
 
   function handleLimitChange (event) {
-    setLimit(+event.target.value)
-    setOffset(0)
+    state.limit = +event.target.value
+    state.offset = 0
   }
 
   function renderListParams () {
     const { pokemons } = props
+    const { offset, limit } = state
     if (pokemons.length !== 0) {
       return (
         <div className="pagination">
@@ -120,24 +124,26 @@ export default function CardList (props) {
     return []
   }
 
-  const { loadingFlag } = props
-  if (loadingFlag) {
-    return (
-      <div className="loading">
-        <p>Loading...</p>
-      </div>
-    )
-  } else {
-    return (
-      <div>
-        {renderListParams()}
-        <div className="card-list">
-          {currentPokemons().map(pokemon => (
-            <Card key={pokemon.id} pokemon={pokemon} />
-          ))}
+  return useObserver(() => {
+    const { loadingFlag } = props
+    if (loadingFlag) {
+      return (
+        <div className="loading">
+          <p>Loading...</p>
         </div>
-        <div className="pages">{renderPages()}</div>
-      </div>
-    )
-  }
+      )
+    } else {
+      return (
+        <div>
+          {renderListParams()}
+          <div className="card-list">
+            {currentPokemons().map(pokemon => (
+              <Card key={pokemon.id} pokemon={pokemon} />
+            ))}
+          </div>
+          <div className="pages">{renderPages()}</div>
+        </div>
+      )
+    }
+  })
 }
