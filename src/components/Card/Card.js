@@ -1,6 +1,6 @@
 /* eslint-disable react/prop-types */
 import React, { useState } from 'react'
-import '../styles/css/Card.css'
+import './Card.sass'
 
 export default function Card (props) {
   const [opened, setOpened] = useState(false)

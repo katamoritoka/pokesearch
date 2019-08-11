@@ -1,8 +1,8 @@
 import React, { useState } from 'react'
-import '../styles/css/App.css'
-import SearchBar from './SearchBar'
-import CardList from './CardList'
-import PokeApi from '../util/PokeApi'
+import './App.sass'
+import SearchBar from '../SearchBar/SearchBar'
+import CardList from '../CardList/CardList'
+import PokeApi from '../../util/PokeApi'
 
 export default function App (props) {
   const [pokemons, setPokemons] = useState([])

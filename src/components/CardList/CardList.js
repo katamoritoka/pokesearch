@@ -1,7 +1,7 @@
 /* eslint-disable react/prop-types */
 import React, { useState } from 'react'
-import '../styles/css/CardList.css'
-import Card from './Card'
+import './CardList.sass'
+import Card from '../Card/Card'
 
 export default function CardList (props) {
   const [offset, setOffset] = useState(0)
